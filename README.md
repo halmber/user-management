@@ -25,7 +25,7 @@ This project is a user management table application built with React, Redux, and
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/user-management-table.git
+   git clone https://github.com/halmber/user-management.git
    cd user-management-table
    ```
 
