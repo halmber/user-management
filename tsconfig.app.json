@@ -20,7 +20,8 @@
       "@assets/*": ["./assets/*"],
       "@pages/*": ["./pages/*"],
       "@store/*": ["./store/*"],
-      "@features/*": ["./features/*"]
+      "@features/*": ["./features/*"],
+      "@api/*": ["./api/*"]
     },
 
     /* Linting */

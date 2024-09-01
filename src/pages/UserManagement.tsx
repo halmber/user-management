@@ -2,12 +2,17 @@ import FilterInputs from "@components/FilterInputs";
 import UsersTable from "@components/UsersTable";
 import { TABLE_COLUMNS } from "@features/userManagement/constants";
 import { Filters } from "@features/userManagement/types";
-import { setFilter } from "@features/userManagement/usersSlice";
+import { fetchUsersThunk, setFilter } from "@features/userManagement/usersSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { useEffect } from "react";
 
 const UserManagement = () => {
   const { users, filters } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUsersThunk());
+  }, [dispatch]);
 
   const filteredUsers = users.filter(
     (user) =>

@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Filters, User } from "./types";
+import { fetchUsers } from "./usersService";
 
 interface UsersState {
   users: User[];
@@ -9,11 +10,7 @@ interface UsersState {
 }
 
 const initialState: UsersState = {
-  users: [
-    { id: 1, name: "Leanne Graham", username: "Bret", email: "jSincere@april.biz", phone: "1-770-736-8031" },
-    { id: 2, name: "Ervin Howell", username: "Antonette", email: "Shanna@melissa.tv", phone: "010-692-6593" },
-    { id: 3, name: "Clementine Bauch", username: "Samantha", email: "Nathan@yesenia.net", phone: "1-463-123-4447" },
-  ],
+  users: [],
   filters: {
     name: "",
     username: "",
@@ -24,6 +21,11 @@ const initialState: UsersState = {
   error: null,
 };
 
+export const fetchUsersThunk = createAsyncThunk("users/fetchUsers", async () => {
+  const users = await fetchUsers();
+  return users;
+});
+
 const userSlice = createSlice({
   name: "users",
   initialState,
@@ -31,6 +33,20 @@ const userSlice = createSlice({
     setFilter: (state, action: PayloadAction<{ field: keyof Filters; value: string }>) => {
       state.filters[action.payload.field] = action.payload.value;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUsersThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchUsersThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users = action.payload;
+      })
+      .addCase(fetchUsersThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || null;
+      });
   },
 });
 
