@@ -28,7 +28,7 @@ const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setFilter: (state, action: PayloadAction<{ field: keyof UsersState["filters"]; value: string }>) => {
+    setFilter: (state, action: PayloadAction<{ field: keyof Filters; value: string }>) => {
       state.filters[action.payload.field] = action.payload.value;
     },
   },
