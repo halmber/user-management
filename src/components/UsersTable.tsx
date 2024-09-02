@@ -1,5 +1,5 @@
 import { TableFieldsType, User } from "@features/userManagement/types";
-import { FC } from "react";
+import { FC, memo } from "react";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import NoDataRow from "./NoDataRow";
@@ -24,4 +24,4 @@ const UsersTable: FC<UsersTableProps> = ({ users, tableColumns }) => {
   );
 };
 
-export default UsersTable;
+export default memo(UsersTable);

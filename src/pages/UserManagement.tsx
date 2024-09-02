@@ -4,31 +4,36 @@ import { TABLE_COLUMNS } from "@features/userManagement/constants";
 import { Filters } from "@features/userManagement/types";
 import { clearFilters, fetchUsersThunk, setFilter } from "@features/userManagement/usersSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 const UserManagement = () => {
   const { users, filters } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
+  const handleFilterChange = useCallback(
+    (field: keyof Filters, value: string) => {
+      dispatch(setFilter({ field, value }));
+    },
+    [dispatch],
+  );
+
+  const handleClearFilters = useCallback(() => {
+    dispatch(clearFilters());
+  }, [dispatch]);
+
+  const filteredUsers = useMemo(() => {
+    return users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(filters.name.toLowerCase()) &&
+        user.username.toLowerCase().includes(filters.username.toLowerCase()) &&
+        user.email.toLowerCase().includes(filters.email.toLowerCase()) &&
+        user.phone.includes(filters.phone),
+    );
+  }, [users, filters]);
+
   useEffect(() => {
     dispatch(fetchUsersThunk());
   }, [dispatch]);
-
-  const filteredUsers = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(filters.name.toLowerCase()) &&
-      user.username.toLowerCase().includes(filters.username.toLowerCase()) &&
-      user.email.toLowerCase().includes(filters.email.toLowerCase()) &&
-      user.phone.includes(filters.phone),
-  );
-
-  const handleFilterChange = (field: keyof Filters, value: string) => {
-    dispatch(setFilter({ field, value }));
-  };
-
-  const handleClearFilters = () => {
-    dispatch(clearFilters());
-  };
 
   return (
     <div className="container mx-auto p-4">

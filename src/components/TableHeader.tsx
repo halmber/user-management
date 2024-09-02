@@ -1,5 +1,5 @@
 import { TableFieldsType } from "@features/userManagement/types";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 interface TableHeaderProps {
   columns: TableFieldsType;
@@ -23,4 +23,4 @@ const TableHeader: FC<TableHeaderProps> = ({ columns }) => {
   );
 };
 
-export default TableHeader;
+export default memo(TableHeader);

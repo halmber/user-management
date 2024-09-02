@@ -1,5 +1,6 @@
 import { Filters, TableFieldsType } from "@features/userManagement/types";
-import { FC } from "react";
+import { FC, memo } from "react";
+import Button from "./common/Button";
 
 interface FilterInputsProps {
   tableColumns: TableFieldsType;
@@ -20,14 +21,9 @@ const FilterInputs: FC<FilterInputsProps> = ({ tableColumns, filters, handleFilt
           onChange={(e) => handleFilterChange(column, e.target.value)}
         />
       ))}
-      <button
-        onClick={handleClearFilters}
-        className="w-full md:w-auto px-4 py-2 bg-black text-white rounded-md shadow-sm hover:bg-[#2f2f31] focus:outline-none active:bg-black transition-colors duration-200 ease-in-out"
-      >
-        Clear filters
-      </button>
+      <Button onClick={handleClearFilters}>Clear filters</Button>
     </>
   );
 };
 
-export default FilterInputs;
+export default memo(FilterInputs);

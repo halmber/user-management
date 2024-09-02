@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 
 interface NoDataRowProps {
   colSpan: number;
@@ -17,4 +17,4 @@ const NoDataRow: FC<NoDataRowProps> = ({ colSpan }) => {
   );
 };
 
-export default NoDataRow;
+export default memo(NoDataRow);
