@@ -21,7 +21,8 @@
       "@pages/*": ["./pages/*"],
       "@store/*": ["./store/*"],
       "@features/*": ["./features/*"],
-      "@api/*": ["./api/*"]
+      "@api/*": ["./api/*"],
+      "@hooks/*": ["./hooks/*"]
     },
 
     /* Linting */
