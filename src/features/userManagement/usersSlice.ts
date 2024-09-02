@@ -33,6 +33,11 @@ const userSlice = createSlice({
     setFilter: (state, action: PayloadAction<{ field: keyof Filters; value: string }>) => {
       state.filters[action.payload.field] = action.payload.value;
     },
+    clearFilters: (state) => {
+      Object.keys(state.filters).forEach((key) => {
+        state.filters[key as keyof Filters] = "";
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -50,5 +55,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setFilter } = userSlice.actions;
+export const { setFilter, clearFilters } = userSlice.actions;
 export default userSlice.reducer;

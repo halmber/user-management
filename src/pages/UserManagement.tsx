@@ -2,7 +2,7 @@ import FilterInputs from "@components/FilterInputs";
 import UsersTable from "@components/UsersTable";
 import { TABLE_COLUMNS } from "@features/userManagement/constants";
 import { Filters } from "@features/userManagement/types";
-import { fetchUsersThunk, setFilter } from "@features/userManagement/usersSlice";
+import { clearFilters, fetchUsersThunk, setFilter } from "@features/userManagement/usersSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useEffect } from "react";
 
@@ -26,11 +26,20 @@ const UserManagement = () => {
     dispatch(setFilter({ field, value }));
   };
 
+  const handleClearFilters = () => {
+    dispatch(clearFilters());
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">User Management</h1>
-      <div className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-4">
-        <FilterInputs tableColumns={TABLE_COLUMNS} filters={filters} handleFilterChange={handleFilterChange} />
+      <div className="mb-4 grid grid-cols-1 md:grid-cols-5 gap-4">
+        <FilterInputs
+          tableColumns={TABLE_COLUMNS}
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+          handleClearFilters={handleClearFilters}
+        />
       </div>
       <div className="overflow-x-auto bg-white shadow-md rounded-lg">
         <UsersTable users={filteredUsers} tableColumns={TABLE_COLUMNS} />
