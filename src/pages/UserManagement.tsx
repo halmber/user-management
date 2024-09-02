@@ -7,9 +7,10 @@ import { clearFilters, fetchUsersThunk, setFilter } from "@features/userManageme
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useFilteredUsers } from "@hooks/useFilteredUsers";
 import { useCallback, useEffect } from "react";
+import ErrorMessage from "@components/ErrorMessage";
 
 const UserManagement = () => {
-  const { users, filters, loading } = useAppSelector((state) => state.users);
+  const { users, filters, loading, error } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
   const filteredUsers = useFilteredUsers(users, filters);
@@ -40,6 +41,9 @@ const UserManagement = () => {
           handleClearFilters={handleClearFilters}
         />
       </div>
+
+      {error && <ErrorMessage message={error}></ErrorMessage>}
+
       <div className="overflow-x-auto bg-white shadow-md rounded-lg">
         {loading ? <LoadingSpinner /> : <UsersTable users={filteredUsers} tableColumns={TABLE_COLUMNS} />}
       </div>
