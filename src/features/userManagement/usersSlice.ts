@@ -17,7 +17,7 @@ const initialState: UsersState = {
     email: "",
     phone: "",
   },
-  loading: false,
+  loading: true,
   error: null,
 };
 

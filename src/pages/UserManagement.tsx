@@ -1,5 +1,6 @@
 import FilterInputs from "@components/FilterInputs";
 import UsersTable from "@components/UsersTable";
+import LoadingSpinner from "@components/LoadingSpinner";
 import { TABLE_COLUMNS } from "@features/userManagement/constants";
 import { Filters } from "@features/userManagement/types";
 import { clearFilters, fetchUsersThunk, setFilter } from "@features/userManagement/usersSlice";
@@ -8,7 +9,7 @@ import { useFilteredUsers } from "@hooks/useFilteredUsers";
 import { useCallback, useEffect } from "react";
 
 const UserManagement = () => {
-  const { users, filters } = useAppSelector((state) => state.users);
+  const { users, filters, loading } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
   const filteredUsers = useFilteredUsers(users, filters);
@@ -40,7 +41,7 @@ const UserManagement = () => {
         />
       </div>
       <div className="overflow-x-auto bg-white shadow-md rounded-lg">
-        <UsersTable users={filteredUsers} tableColumns={TABLE_COLUMNS} />
+        {loading ? <LoadingSpinner /> : <UsersTable users={filteredUsers} tableColumns={TABLE_COLUMNS} />}
       </div>
     </div>
   );
