@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Filters, User } from "./types";
 import { fetchUsers } from "./usersService";
+import { RootState } from "@store/store";
 
 interface UsersState {
   users: User[];
@@ -21,8 +22,9 @@ const initialState: UsersState = {
   error: null,
 };
 
-export const fetchUsersThunk = createAsyncThunk("users/fetchUsers", async () => {
-  const users = await fetchUsers();
+export const fetchUsersThunk = createAsyncThunk("users/fetchUsers", async (_, { getState }) => {
+  const state = getState() as RootState;
+  const users = await fetchUsers(state.users.filters);
   return users;
 });
 
@@ -50,7 +52,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUsersThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || null;
+        state.error = action.error.message || "An error occurred";
       });
   },
 });
