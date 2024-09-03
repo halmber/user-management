@@ -9,11 +9,11 @@ export const useFilteredUsers = (users: User[], filters: Filters) => {
       return users;
     }
     return users.filter(
-      (user) =>
-        user.name.toLowerCase().includes(filters.name.toLowerCase()) &&
-        user.username.toLowerCase().includes(filters.username.toLowerCase()) &&
-        user.email.toLowerCase().includes(filters.email.toLowerCase()) &&
-        user.phone.includes(filters.phone),
+      ({ name, username, email, phone }) =>
+        name.toLowerCase().includes(filters.name.toLowerCase()) &&
+        username.toLowerCase().includes(filters.username.toLowerCase()) &&
+        email.toLowerCase().includes(filters.email.toLowerCase()) &&
+        phone.includes(filters.phone),
     );
   }, [users, filters]);
 };
