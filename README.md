@@ -1,14 +1,18 @@
 # User Management Table
 
-This project is a user management table application built with React, Redux, and TypeScript. The table displays user information fetched from a mock API and includes advanced filtering functionality.
+This project is a user management table application built with React, Redux Toolkit, and TypeScript. The table displays user information fetched from a mock API and includes advanced filtering functionality.
 
 ## Features
 
 - **User Management Table**: Displays user information (name, username, email, phone) fetched from a mock API.
-- **Advanced Filtering**: Allows users to filter the table by name, username, email, and phone with real-time updates.
+- **Advanced Filtering**:
+  - **Client-Side Filtering (Main Branch)**: The `main` branch implements client-side filtering, allowing users to filter the table by name, username, email, and phone with real-time updates.
+  - **Server-Side Filtering with Debouncing (Debounced-Server-Filtering Branch)**: The `debounced-server-filtering` branch features server-side filtering. Requests are sent to the server with query parameters using a debounced function to reduce the number of API calls.
+- **Reusable Components**: The project utilizes the `clxs` utility with `twMerge` (referred to as `cn`) to create reusable components with consistent styling.
 - **State Management**: Utilizes Redux Toolkit for managing the application's state.
 - **Type Safety**: TypeScript is used throughout the application to ensure type safety.
 - **Responsive Design**: Styled with Tailwind CSS for a clean and responsive user interface.
+- **Axios for API Requests**: Axios is used for making HTTP requests to fetch user data from the server.
 
 ## Technologies Used
 
@@ -26,7 +30,7 @@ This project is a user management table application built with React, Redux, and
 
    ```bash
    git clone https://github.com/halmber/user-management.git
-   cd user-management-table
+   cd user-management
    ```
 
 2. **Install dependencies:**
@@ -52,6 +56,11 @@ This project is a user management table application built with React, Redux, and
 This project uses the [JSONPlaceholder](https://jsonplaceholder.typicode.com/) API to fetch user data.
 
 - **Fetch All Users**: `GET /users`
+
+## Branches
+
+- **Main Branch**: Implements client-side filtering of user data.
+- **Debounced-Server-Filtering Branch**: Implements server-side filtering with debounced API calls using query parameters.
 
 ## Contributing
 
